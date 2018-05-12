@@ -16,7 +16,6 @@ services:
       context: db
       cache_from:
         - mariadb:latest
-    volumes:git@github.com:styppo/nimiq-db-exporter.git
      - "mariadb:/var/lib/mysql"
     ports:
       - "3306:3306" # XXX: be careful. this could expose the port externally!
