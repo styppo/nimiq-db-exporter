@@ -9,7 +9,7 @@ The db-exporter docker image consists out of two parts: the db-exporter itself a
 The containers can be brought up by simply executing `docker-compose up -d` in the directory containing the docker-compose file. The command `docker-compose down` stops and removes the containers again. This includes **all** data in the container instances expect for the Nimiq blockchain and the MySQL database. These databases are saved persistently on seperate volumes managed by the docker daemon. These volumes can be configured in the top-level *volume* key in the docker-compose file. More information can be found in the docker-compose reference (see [1] and [2]). 
 The commands `docker-compose stop` and `docker-compose start` respectively temporarily terminate the container and restart it, however, without deleting the containers (in contrast to `down` and `up`). 
 
-On the first execution, the base images are pulled from the Docker registry and/or the images are built from the enclosed docker files. Additionally, the MySQL database is initialized.
+On the first execution, the base images are pulled from the Docker registry and/or the images are built from the enclosed Dockerfiles. Additionally, the MySQL database is initialized.
 
 By default, the MariaDB image exports the daemon on port 3306 to the host locally only. The database is *nimiq* with user *nimiq* and password *nimiq*. This port forwarding setting can be changed in the docker-compose file to make the port externally reachable. More information on the MariaDB docker image can be found here [3].
 
