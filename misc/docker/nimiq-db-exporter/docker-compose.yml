@@ -16,6 +16,7 @@ services:
       context: db
       cache_from:
         - mariadb:latest
+    volumes:
      - "mariadb:/var/lib/mysql"
     ports:
       - "3306:3306" # XXX: be careful. this could expose the port externally!
