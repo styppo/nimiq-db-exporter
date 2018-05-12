@@ -6,6 +6,7 @@ services:
       context: exporter
       cache_from:
         - nimiq/client:stable
+        - nimiq/db-exporter:stable
     depends_on:
       - "db"
     volumes:
@@ -16,6 +17,7 @@ services:
       context: db
       cache_from:
         - mariadb:latest
+        - nimiq/db-exporter:stable
     volumes:
       - "mariadb:/var/lib/mysql"
     ports:
