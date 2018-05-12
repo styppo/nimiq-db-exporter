@@ -11,7 +11,7 @@ The commands `docker-compose stop` and `docker-compose start` respectively tempo
 
 On the first execution, the base images are pulled from the Docker registry and/or the images are built from the enclosed Dockerfiles. Additionally, the MySQL database is initialized.
 
-By default, the MariaDB image exports the daemon on port 3306 to the host locally only. The database is *nimiq* with user *nimiq* and password *nimiq*. This port forwarding setting can be changed in the docker-compose file to make the port externally reachable. The root password is set to a random value during initialzation, which can be found in the logs. More information on the MariaDB docker image can be found here [3].
+By default, the MariaDB image exports the daemon on port 3306 to the host locally only. This port forwarding setting can be changed in the docker-compose file to make the port externally reachable. The database is *nimiq* with user *nimiq* and password *nimiq*. The root password is set to a random value during initialzation, which can be found in the logs. More information on the MariaDB docker image can be found here [3].
 
 ### Known limitations
 
