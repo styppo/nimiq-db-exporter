@@ -1,0 +1,25 @@
+{
+  "name": "nimiq-db-exporter",
+  "version": "1.0.0",
+  "homepage": "https://nimiq.com/",
+  "description": "",
+  "private": true,
+  "author": {
+    "name": "The Nimiq Core Development Team",
+    "url": "https://nimiq.com/"
+  },
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=7.9.0"
+  },
+  "devDependencies": {
+    "jasmine": "^3.1.0"
+  },
+  "dependencies": {
+    "@nimiq/core": "^1.1.2",
+    "json5": "^1.0.1",
+    "lodash.merge": "^4.6.1",
+    "minimist": "^1.2.0",
+    "mysql2": "^1.5.3"
+  }
+}
