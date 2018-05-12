@@ -51,8 +51,8 @@ class Exporter {
                 throw new Error('Inconsistent database state');
             }
 
-            const [ res ] = await this._connectionPool.execute('SELECT id FROM block WHERE height = ? AND hash = ?', [ maxHeight, block.hash().serialize() ]);
-            if (res.length === 0) {
+            const [ result ] = await this._connectionPool.execute('SELECT id FROM block WHERE height = ? AND hash = ?', [ maxHeight, block.hash().serialize() ]);
+            if (result.length === 0) {
                 throw new Error('Inconsistent database state');
             }
 
@@ -163,7 +163,7 @@ class Exporter {
      */
     static async _insertTransactions(conn, blockId, transactions) {
         if (transactions.length === 0) {
-            return Promise.resolve();
+            return;
         }
 
         const query =
