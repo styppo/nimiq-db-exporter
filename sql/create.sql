@@ -36,6 +36,6 @@ CREATE TABLE nimiq.transaction (
   FOREIGN KEY (block_id) REFERENCES nimiq.block(id) ON DELETE CASCADE
 );
 
-CREATE USER 'nimiq'@'localhost';
-GRANT SELECT,INSERT,DELETE ON nimiq.block TO 'nimiq'@'localhost';
-GRANT SELECT,INSERT,DELETE ON nimiq.transaction TO 'nimiq'@'localhost';
+CREATE USER 'nimiq'@'%';
+GRANT SELECT,INSERT,DELETE ON nimiq.block TO 'nimiq'@'%';
+GRANT SELECT,INSERT,DELETE ON nimiq.transaction TO 'nimiq'@'%';
