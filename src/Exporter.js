@@ -143,7 +143,7 @@ class Exporter {
             block.timestamp,
             block.nBits,
             block.minerAddr.serialize(),
-            block.body.extraData,
+            block.body.extraData.byteLength > 0 ? block.body.extraData : null,
             block.transactionCount,
             txValue,
             txFees,
@@ -167,19 +167,18 @@ class Exporter {
         }
 
         const query =
-            'INSERT INTO transaction ('
-            + 'hash, '
-            + 'block_id, '
-            + 'sender_type, '
-            + 'sender_address, '
-            + 'recipient_type, '
-            + 'recipient_address, '
-            + 'value, '
-            + 'fee, '
-            + 'validity_start_height, '
-            + 'flags, '
-            + 'data'
-            + ') VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            'INSERT INTO transaction SET '
+            + 'hash = ?, '
+            + 'block_id = ?, '
+            + 'sender_type = ?, '
+            + 'sender_address = ?, '
+            + 'recipient_type = ?, '
+            + 'recipient_address = ?, '
+            + 'value = ?, '
+            + 'fee = ?, '
+            + 'validity_start_height = ?, '
+            + 'flags = ?, '
+            + 'data = ?';
         const stmt = await conn.prepare(query);
 
         const promises = [];
@@ -195,7 +194,7 @@ class Exporter {
                 tx.fee,
                 tx.validityStartHeight,
                 tx.flags,
-                tx.data
+                tx.data.byteLength > 0 ? tx.data.byteLength : null
             ]));
         }
         return Promise.all(promises);
@@ -208,7 +207,7 @@ class Exporter {
      */
     _onBlockReverted(block) {
         // It is sufficient to delete only the block here.
-        // Transactions are deleted by the DBMS upon block deletion (ON DELETE CASCADE).
+        // Transactions are deleted automatically by the DBMS upon block deletion.
         const query = 'DELETE FROM block WHERE hash = ?';
         const params = [ block.hash().serialize() ];
         return this._connectionPool.execute(query, params);

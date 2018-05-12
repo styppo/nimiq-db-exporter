@@ -7,7 +7,7 @@ CREATE TABLE nimiq.block (
   timestamp             INT UNSIGNED        NOT NULL,
   n_bits                INT UNSIGNED        NOT NULL,
   miner_address         BINARY(20)          NOT NULL,
-  extra_data            BINARY(255)         NULL,
+  extra_data            VARBINARY(255)      NULL,
   tx_count              SMALLINT UNSIGNED   NOT NULL,
   tx_value              BIGINT UNSIGNED     NOT NULL DEFAULT 0,
   tx_fees               BIGINT UNSIGNED     NOT NULL DEFAULT 0,
