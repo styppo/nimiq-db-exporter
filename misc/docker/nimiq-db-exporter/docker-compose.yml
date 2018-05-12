@@ -21,7 +21,7 @@ services:
     volumes:
       - "mariadb:/var/lib/mysql"
     ports:
-      - "3306:3306" # XXX: be careful. this could expose the port externally!
+      - "127.0.0.1:3306:3306"
 
 volumes:
   nimiqdb:
