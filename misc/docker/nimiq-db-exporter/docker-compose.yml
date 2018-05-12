@@ -1,0 +1,26 @@
+version: "3.2"
+
+services:
+  exporter:
+    build:
+      context: exporter
+      cache_from:
+        - nimiq/client:stable
+    depends_on:
+      - "db"
+    volumes:
+     - "nimiqdb:/home/node/db-exporter/main-full-consensus"
+
+  db:
+    build:
+      context: db
+      cache_from:
+        - mariadb:latest
+    volumes:git@github.com:styppo/nimiq-db-exporter.git
+     - "mariadb:/var/lib/mysql"
+    ports:
+      - "3306:3306" # XXX: be careful. this could expose the port externally!
+
+volumes:
+  nimiqdb:
+  mariadb:
