@@ -30,6 +30,7 @@ CREATE TABLE nimiq.transaction (
   validity_start_height INT UNSIGNED        NOT NULL,
   flags                 TINYINT UNSIGNED    NOT NULL DEFAULT 0,
   data                  VARBINARY(255)      NULL,
+  is_processed          BOOLEAN             NOT NULL DEFAULT FALSE,
 
   INDEX idx_transaction_block_id (block_id),
   INDEX idx_transaction_hash (hash),
