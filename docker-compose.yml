@@ -1,0 +1,44 @@
+version: "3.2"
+
+services:
+  exporter:
+    build:
+      context: exporter
+      cache_from:
+        - nimiq/client:stable
+        - nimiq/db-exporter:stable
+    depends_on:
+      - "db"
+    volumes:
+      - "nimiqdb:/home/node/db-exporter/main-full-consensus"
+
+  db:
+    build:
+      context: db
+      # cache_from:
+      #   - mariadb:latest
+      #   - nimiq/db-exporter:stable
+    volumes:
+      - "mariadb:/var/lib/mysql"
+    ports:
+      - "3306:3306/tcp"
+
+  # db:
+  #   build:
+  #     context: postgres
+  #     # cache_from:
+  #     #   - postgres:latest
+  #     #   - nimiq/db-exporter:stable
+  #   environment:
+  #     POSTGRES_USER: nimiq
+  #     POSTGRES_PASSWORD: nimiq
+  #     POSTGRES_DB: nimiq
+  #   volumes:
+  #     - "postgresdb:/var/lib/postgresql/data"
+  #   ports:
+  #     - "127.0.0.1:3306:5432"
+
+volumes:
+  nimiqdb:
+  postgresdb:
+  mariadb:

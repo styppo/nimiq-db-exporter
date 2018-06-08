@@ -37,7 +37,7 @@ const DEFAULT_CONFIG = /** @type {Config} */ {
     seedPeers: [],
     constantOverrides: {},
     database: {
-        host: 'db',
+        host: 'localhost',
         name: 'nimiq',
         user: 'nimiq',
         password: 'nimiq'
