@@ -2,7 +2,6 @@ FROM node:9-stretch
 
 # Install dependencies
 RUN apt-get update && apt-get -y upgrade
-# RUN apt-get install -y git-core wait-for-it
 RUN apt-get install -y wait-for-it
 
 
@@ -13,13 +12,10 @@ USER ${USER}
 WORKDIR ${HOME}
 RUN mkdir db-exporter
 
-# Check out the code
-# RUN git clone https://github.com/styppo/nimiq-db-exporter.git db-exporter
 COPY ./src db-exporter/src
-COPY ./sql db-exporter/sql
 COPY ./index.js db-exporter
 COPY ./package.json db-exporter
-COPY ./yarn.lock db-exporter
+# COPY ./yarn.lock db-exporter
 
 WORKDIR ${HOME}/db-exporter
 

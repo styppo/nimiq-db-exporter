@@ -4,13 +4,15 @@ services:
   exporter:
     build:
       context: exporter
-      cache_from:
-        - nimiq/client:stable
-        - nimiq/db-exporter:stable
+      # cache_from:
+      #   - nimiq/client:stable
+      #   - nimiq/exporter:stable
     depends_on:
       - "db"
     volumes:
       - "nimiqdb:/home/node/db-exporter/main-full-consensus"
+    environment:
+      DB_HOST: db
 
   db:
     image: mariadb
