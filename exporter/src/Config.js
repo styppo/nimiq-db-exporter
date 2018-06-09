@@ -5,6 +5,8 @@ const merge = require('lodash.merge');
 const Log = require('@nimiq/core').Log;
 const TAG = 'Config';
 
+const DB_HOST = process.env.DB_HOST || 'localhost'
+
 /**
  * @typedef {object} Config
  * @property {string} host
@@ -37,7 +39,7 @@ const DEFAULT_CONFIG = /** @type {Config} */ {
     seedPeers: [],
     constantOverrides: {},
     database: {
-        host: 'db',
+        host: DB_HOST,
         name: 'nimiq',
         user: 'nimiq',
         password: 'nimiq'

@@ -1,0 +1,31 @@
+---
+version: "3.2"
+
+services:
+  exporter:
+    build:
+      context: exporter
+      # cache_from:
+      #   - nimiq/client:stable
+      #   - nimiq/exporter:stable
+    depends_on:
+      - "db"
+    volumes:
+      - "nimiqdb:/home/node/db-exporter/main-full-consensus"
+    environment:
+      DB_HOST: db
+
+  db:
+    image: mariadb
+    volumes:
+      - "./mariadb:/var/lib/mysql"
+      - "./db/sql/create.sql:/docker-entrypoint-initdb.d/0_create.sql"
+    ports:
+      - "3306:3306/tcp"
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+
+volumes:
+  nimiqdb:
+  mariadb:

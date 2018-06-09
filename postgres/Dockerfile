@@ -1,4 +1,4 @@
-FROM mariadb:latest
+FROM postgres:latest
 
 # Install dependencies
 RUN apt-get update && apt-get -y upgrade

@@ -2,16 +2,17 @@ CREATE DATABASE nimiq;
 
 CREATE TABLE nimiq.block (
   id                    INT UNSIGNED        PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  hash                  BINARY(32)          NOT NULL UNIQUE,
+  hash                  VARCHAR(255)        NOT NULL UNIQUE,
   height                INT UNSIGNED        NOT NULL UNIQUE,
   timestamp             INT UNSIGNED        NOT NULL,
   n_bits                INT UNSIGNED        NOT NULL,
-  miner_address         BINARY(20)          NOT NULL,
-  extra_data            VARBINARY(255)      NULL,
+  miner_address         VARCHAR(255)        NOT NULL,
+  extra_data            VARCHAR(255)        NULL,
   tx_count              SMALLINT UNSIGNED   NOT NULL,
   tx_value              BIGINT UNSIGNED     NOT NULL DEFAULT 0,
   tx_fees               BIGINT UNSIGNED     NOT NULL DEFAULT 0,
   size                  INT UNSIGNED        NOT NULL,
+  is_processed          BOOLEAN             NOT NULL DEFAULT FALSE,
 
   INDEX idx_block_hash (hash),
   INDEX idx_block_height (height)
@@ -19,17 +20,17 @@ CREATE TABLE nimiq.block (
 
 CREATE TABLE nimiq.transaction (
   id                    INT UNSIGNED        PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  hash                  BINARY(32)          NOT NULL UNIQUE,
+  hash                  VARCHAR(255)        NOT NULL UNIQUE,
   block_id              INT UNSIGNED        NOT NULL,
   sender_type           TINYINT UNSIGNED    NOT NULL DEFAULT 0,
-  sender_address        BINARY(20)          NOT NULL,
+  sender_address        VARCHAR(255)        NOT NULL,
   recipient_type        TINYINT UNSIGNED    NOT NULL DEFAULT 0,
-  recipient_address     BINARY(20)          NOT NULL,
+  recipient_address     VARCHAR(255)        NOT NULL,
   value                 BIGINT UNSIGNED     NOT NULL,
   fee                   BIGINT UNSIGNED     NOT NULL,
   validity_start_height INT UNSIGNED        NOT NULL,
   flags                 TINYINT UNSIGNED    NOT NULL DEFAULT 0,
-  data                  VARBINARY(255)      NULL,
+  data                  TEXT                NULL,
 
   INDEX idx_transaction_block_id (block_id),
   INDEX idx_transaction_hash (hash),
