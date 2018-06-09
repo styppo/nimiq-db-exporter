@@ -51,7 +51,7 @@ class Exporter {
                 throw new Error('Inconsistent database state');
             }
 
-            const [ result ] = await this._connectionPool.execute('SELECT id FROM block WHERE height = ? AND hash = ?', [ maxHeight, block.hash().serialize() ]);
+            const [ result ] = await this._connectionPool.execute('SELECT id FROM block WHERE height = ? AND hash = ?', [ maxHeight, block.hash().toString() ]);
             if (result.length === 0) {
                 throw new Error('Inconsistent database state');
             }
@@ -138,11 +138,11 @@ class Exporter {
             + 'tx_fees = ?, '
             + 'size = ?';
         const params = [
-            block.hash().serialize(),
+            block.hash().toString(),
             block.height,
             block.timestamp,
             block.nBits,
-            block.minerAddr.serialize(),
+            block.minerAddr.toString(),
             block.body.extraData.byteLength > 0 ? block.body.extraData : null,
             block.transactionCount,
             txValue,
@@ -184,12 +184,12 @@ class Exporter {
         const promises = [];
         for (const tx of transactions) {
             promises.push(stmt.execute([
-                tx.hash().serialize(),
+                tx.hash().toString(),
                 blockId,
                 tx.senderType,
-                tx.sender.serialize(),
+                tx.sender.toString(),
                 tx.recipientType,
-                tx.recipient.serialize(),
+                tx.recipient.toString(),
                 tx.value,
                 tx.fee,
                 tx.validityStartHeight,
@@ -209,7 +209,7 @@ class Exporter {
         // It is sufficient to delete only the block here.
         // Transactions are deleted automatically by the DBMS upon block deletion.
         const query = 'DELETE FROM block WHERE hash = ?';
-        const params = [ block.hash().serialize() ];
+        const params = [ block.hash().toString() ];
         return this._connectionPool.execute(query, params);
     }
 }
