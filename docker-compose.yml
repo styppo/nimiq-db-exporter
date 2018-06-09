@@ -13,33 +13,15 @@ services:
       - "nimiqdb:/home/node/db-exporter/main-full-consensus"
 
   db:
-    build:
-      context: db
-      cache_from:
-        - mariadb:latest
-        # - nimiq/db-exporter:stable
+    image: mariadb
     volumes:
       - "./mariadb:/var/lib/mysql"
       - "./db/sql/create.sql:/docker-entrypoint-initdb.d/0_create.sql"
     ports:
       - "3306:3306/tcp"
+    container_name: db
     environment:
-      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
-
-  # postgres:
-  #   build:
-  #     context: postgres
-  #     # cache_from:
-  #     #   - postgres:latest
-  #     #   - nimiq/db-exporter:stable
-  #   environment:
-  #     POSTGRES_USER: nimiq
-  #     POSTGRES_PASSWORD: nimiq
-  #     POSTGRES_DB: nimiq
-  #   volumes:
-  #     - "postgresdb:/var/lib/postgresql/data"
-  #   ports:
-  #     - "5432:5432"
+      MYSQL_ROOT_PASSWORD: secret
 
 volumes:
   nimiqdb:
